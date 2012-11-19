@@ -1,0 +1,7 @@
+parameters:
+#    wrath_user.example.class: Wrath\UserBundle\Example
+
+services:
+#    wrath_user.example:
+#        class: %wrath_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
