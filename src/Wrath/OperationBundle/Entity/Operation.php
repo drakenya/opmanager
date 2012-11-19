@@ -2,6 +2,7 @@
 
 namespace Wrath\OperationBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,10 +23,20 @@ class Operation
     private $id;
     
     /**
+     * @var \Wrath\UserBundle\Entity\User $creator
+     * 
      * @ORM\ManyToOne(targetEntity="Wrath\UserBundle\Entity\User")
      * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
      */
     private $creator;
+    
+    /**
+     * @var
+     * 
+     * @ORM\OneToMany(targetEntity="Participant", mappedBy="operation")
+     * @ORM\JoinColumn(name="participant_id", referencedColumnName="id")
+     */
+    protected $participants;
 
     /**
      * @var string $name
@@ -59,7 +70,9 @@ class Operation
      * 
      */
     public function __construct() {
-      $this->start_at = new \DateTime('now');
+        $this->participants = new ArrayCollection();
+        
+        $this->start_at = new \DateTime('now');
     }
 
 
@@ -186,5 +199,38 @@ class Operation
     public function getCreator()
     {
         return $this->creator;
+    }
+
+    /**
+     * Add participants
+     *
+     * @param Wrath\OperationBundle\Entity\Participant $participants
+     * @return Operation
+     */
+    public function addParticipant(\Wrath\OperationBundle\Entity\Participant $participants)
+    {
+        $this->participants[] = $participants;
+    
+        return $this;
+    }
+
+    /**
+     * Remove participants
+     *
+     * @param Wrath\OperationBundle\Entity\Participant $participants
+     */
+    public function removeParticipant(\Wrath\OperationBundle\Entity\Participant $participants)
+    {
+        $this->participants->removeElement($participants);
+    }
+
+    /**
+     * Get participants
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getParticipants()
+    {
+        return $this->participants;
     }
 }

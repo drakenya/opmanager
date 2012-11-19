@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Wrath\OperationBundle\Entity\Operation;
+use Wrath\OperationBundle\Entity\Participant;
 use Wrath\OperationBundle\Form\OperationType;
 
 /**
@@ -196,6 +197,47 @@ class OperationController extends Controller
         
         if($entity->getEndAt() == null) {
             $entity->setEndAt(new \DateTime('now'));
+        }
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('operation_show', array('id' => $id)));
+    }
+    
+    /**
+     * Join current user to the operation.
+     * 
+     */
+    public function joinAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $entity = $em->getRepository('WrathOperationBundle:Operation')->find($id);
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $participant = new Participant();
+        $participant->setUser($user);
+        $participant->setOperation($entity);
+        $em->persist($participant);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('operation_show', array('id' => $id)));
+    }
+    
+    /**
+     * Part current user from the operation.
+     * 
+     */
+    public function leaveAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $entity = $em->getRepository('WrathOperationBundle:Operation')->find($id);
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        
+        $participant = $em->getRepository('WrathOperationBundle:Participant')->findOneBy(array(
+            'operation' => $entity,
+            'user' => $user,
+            'leave_at' => null,
+        ));
+        if($participant) {
+            $participant->setLeaveAt(new \DateTime('now'));
         }
         $em->flush();
         

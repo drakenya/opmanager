@@ -32,6 +32,12 @@
                         <a href="{{ path('operation_end', { 'id': entity.id }) }}">end</a>
                     </li>
                     {% endif %}
+                    <li>
+                        <a href="{{ path('operation_join', { 'id': entity.id }) }}">join</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('operation_leave', { 'id': entity.id }) }}">leave</a>
+                    </li>
                 </ul>
             </td>
         </tr>

@@ -30,5 +30,13 @@ operation_delete:
     requirements: { _method: post }
 
 operation_end:
-  pattern: /{id}/end
-  defaults: { _controller: "WrathOperationBundle:Operation:end" }
+    pattern: /{id}/end
+    defaults: { _controller: "WrathOperationBundle:Operation:end" }
+  
+operation_join:
+    pattern: /{id}/join
+    defaults: { _controller: "WrathOperationBundle:Operation:join" }
+  
+operation_leave:
+    pattern: /{id}/leave
+    defaults: { _controller: "WrathOperationBundle:Operation:leave" }
