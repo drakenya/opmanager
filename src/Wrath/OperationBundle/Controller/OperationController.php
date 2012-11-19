@@ -179,4 +179,26 @@ class OperationController extends Controller
             ->getForm()
         ;
     }
+    
+    /**
+     * End the current operation.
+     *
+     */
+    public function endAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('WrathOperationBundle:Operation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Operation entity.');
+        }
+        
+        if($entity->getEndAt() == null) {
+            $entity->setEndAt(new \DateTime('now'));
+        }
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('operation_show', array('id' => $id)));
+    }
 }

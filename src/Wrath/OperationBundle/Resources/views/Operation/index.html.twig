@@ -27,6 +27,11 @@
                     <li>
                         <a href="{{ path('operation_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
+                    {% if not entity.endat %}
+                    <li>
+                        <a href="{{ path('operation_end', { 'id': entity.id }) }}">end</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </td>
         </tr>

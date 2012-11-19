@@ -28,3 +28,7 @@ operation_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "WrathOperationBundle:Operation:delete" }
     requirements: { _method: post }
+
+operation_end:
+  pattern: /{id}/end
+  defaults: { _controller: "WrathOperationBundle:Operation:end" }
