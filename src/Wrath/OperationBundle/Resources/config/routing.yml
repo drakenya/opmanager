@@ -1,0 +1,4 @@
+wrath_operation_operation:
+    resource: "@WrathOperationBundle/Resources/config/routing/operation.yml"
+    prefix:   /operation
+

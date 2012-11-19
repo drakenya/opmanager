@@ -1,0 +1,30 @@
+operation:
+    pattern:  /
+    defaults: { _controller: "WrathOperationBundle:Operation:index" }
+
+operation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WrathOperationBundle:Operation:show" }
+
+operation_new:
+    pattern:  /new
+    defaults: { _controller: "WrathOperationBundle:Operation:new" }
+
+operation_create:
+    pattern:  /create
+    defaults: { _controller: "WrathOperationBundle:Operation:create" }
+    requirements: { _method: post }
+
+operation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WrathOperationBundle:Operation:edit" }
+
+operation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WrathOperationBundle:Operation:update" }
+    requirements: { _method: post }
+
+operation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WrathOperationBundle:Operation:delete" }
+    requirements: { _method: post }

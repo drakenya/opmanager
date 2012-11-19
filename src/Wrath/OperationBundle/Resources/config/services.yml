@@ -1,0 +1,7 @@
+parameters:
+#    wrath_operation.example.class: Wrath\OperationBundle\Example
+
+services:
+#    wrath_operation.example:
+#        class: %wrath_operation.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
