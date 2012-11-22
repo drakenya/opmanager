@@ -243,4 +243,17 @@ class Operation
     {
         return $this->participants;
     }
+    
+    /**
+     * 
+     */
+    public function getTotalWeight() {
+        $total_weight = 0.0;
+        
+        foreach($this->getParticipants() as $participant) {
+            $total_weight += $participant->getTotalShipWeight();
+        }
+        
+        return $total_weight;
+    }
 }
