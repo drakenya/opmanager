@@ -207,18 +207,41 @@ class OperationController extends Controller
      * Join current user to the operation.
      * 
      */
-    public function joinAction($id) {
-        $em = $this->getDoctrine()->getManager();
+    public function joinAction($id, Request $request) {
+        $form = $this->createFormBuilder()
+                ->add('ship_class', 'text')
+                ->add('ship_weight', 'text')
+                ->getForm();
         
-        $entity = $em->getRepository('WrathOperationBundle:Operation')->find($id);
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        $participant = new Participant();
-        $participant->setUser($user);
-        $participant->setOperation($entity);
-        $em->persist($participant);
-        $em->flush();
+        if($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            $data = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
         
-        return $this->redirect($this->generateUrl('operation_show', array('id' => $id)));
+            $entity = $em->getRepository('WrathOperationBundle:Operation')->find($id);
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            $participant = new Participant();
+            $participant->setUser($user);
+            $participant->setOperation($entity);
+            $participant->setShipClass($data['ship_class']);
+            $participant->setShipWeight($data['ship_weight']);
+            
+            if($entity->getStartAt() > $participant->getJoinAt()) {
+                $participant->setStartAt($entity->getStartAt());
+            } else {
+                $participant->setStartAt($participant->getJoinAt());
+            }
+            
+            $em->persist($participant);
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('operation_show', array('id' => $id)));
+        }
+        
+        return $this->render('WrathOperationBundle:Operation:join.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
     
     /**
@@ -238,6 +261,7 @@ class OperationController extends Controller
         ));
         if($participant) {
             $participant->setLeaveAt(new \DateTime('now'));
+            $participant->calculateWeights();
         }
         $em->flush();
         

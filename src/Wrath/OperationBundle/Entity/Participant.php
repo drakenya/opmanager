@@ -306,4 +306,17 @@ class Participant
     {
         return $this->user;
     }
+    
+    /**
+     * 
+     */
+    public function calculateWeights() {
+        if($this->start_at < $this->leave_at) {
+            $this->elapsed_time = $this->leave_at->getTimestamp() - $this->start_at->getTimestamp();
+            $this->time_weighted_class = $this->elapsed_time * $this->ship_weight;
+        } else {
+            $this->elapsed_time = 0;
+            $this->time_weighted_class = 0.0;
+        }
+    }
 }
