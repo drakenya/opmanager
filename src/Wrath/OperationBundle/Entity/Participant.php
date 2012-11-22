@@ -88,6 +88,7 @@ class Participant
     
     public function __construct() {
         $this->join_at = new \DateTime('now');
+        $this->ship_weight = 0.0;
     }
 
     /**
@@ -259,6 +260,21 @@ class Participant
     public function getTimeWeightedClass()
     {
         return $this->time_weighted_class;
+    }
+    
+    /**
+     * Get current_time_weighted_class
+     * 
+     * @return float
+     */
+    public function getCurrentTimeWeightedClass() {
+        if($this->time_weighted_class > 0) {
+            return $this->time_weighted_class;
+        } else {
+            $now = new \DateTime('now');
+            $elapsed_time = $now->getTimestamp() - $this->start_at->getTimestamp();
+            return $elapsed_time * $this->ship_weight;
+        }
     }
 
     /**

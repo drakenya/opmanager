@@ -67,6 +67,13 @@ class Operation
     private $total_value;
     
     /**
+     * @var float $total_weighted_value;
+     * 
+     * @ORM\Column(name="total_time_weighted_class", type="decimal", nullable=true)
+     */
+    private $total_time_weighted_class;
+    
+    /**
      * 
      */
     public function __construct() {
@@ -199,6 +206,27 @@ class Operation
     public function getCreator()
     {
         return $this->creator;
+    }
+    
+    /**
+     * Get total_time_weighted_class
+     * 
+     * @return float
+     */
+    public function getTotalTimeWeightedClass() {
+        return $this->total_time_weighted_class;
+    }
+    
+    /**
+     * Set total_time_weighted_class
+     * 
+     */
+    public function setTotalTimeWeightedClass() {
+        $this->total_time_weighted_class = 0.0;
+        
+        foreach($this->getParticipants() as $participant) {
+            $this->total_time_weighted_class += $participant->getCurrentTimeWeightedClass();
+        }
     }
 
     /**
