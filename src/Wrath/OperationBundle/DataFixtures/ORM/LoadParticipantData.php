@@ -23,7 +23,6 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
         $leave_at = new \DateTime('now');
         $leave_at->add(new \DateInterval('PT10M'));
         $participantUserOne->setLeaveAt($leave_at);
-        $participantUserOne->calculateWeights();
         
         $participantUserTwo = new Participant();
         $participantUserTwo->setUser($this->getReference('user-admin'));
@@ -33,17 +32,13 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
 
         $participantUserTwo->setStartAt($participantUserTwo->getJoinAt());
         
-        $leave_at = new \DateTime('now');
-        $leave_at->add(new \DateInterval('PT5M'));
-        $participantUserTwo->setLeaveAt($leave_at);
-        $participantUserTwo->calculateWeights();
-        
         $manager->persist($participantUserOne);
         $manager->persist($participantUserTwo);
         $manager->flush();
         
         $operation = $this->getReference('operation-normal');
-        $operation->setTotalTimeWeightedClass();
+        $operation->end(new \DateTime('now'));
+        //$operation->setTotalTimeWeightedClass();
         $manager->persist($operation);
         $manager->flush();
     }

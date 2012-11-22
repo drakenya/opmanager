@@ -59,13 +59,6 @@ class Participant
     private $leave_at;
 
     /**
-     * @var integer $elapsed_time
-     *
-     * @ORM\Column(name="elapsed_time", type="integer", nullable=true)
-     */
-    private $elapsed_time;
-
-    /**
      * @var string $ship_class
      *
      * @ORM\Column(name="ship_class", type="string", length=255, nullable=true)
@@ -79,13 +72,6 @@ class Participant
      */
     private $ship_weight;
 
-    /**
-     * @var float $time_weighted_class
-     *
-     * @ORM\Column(name="time_weighted_class", type="decimal", nullable=true)
-     */
-    private $time_weighted_class;
-    
     public function __construct() {
         $this->join_at = new \DateTime('now');
         $this->ship_weight = 0.0;
@@ -171,29 +157,6 @@ class Participant
     }
 
     /**
-     * Set elapsed_time
-     *
-     * @param integer $elapsedTime
-     * @return Participant
-     */
-    public function setElapsedTime($elapsedTime)
-    {
-        $this->elapsed_time = $elapsedTime;
-    
-        return $this;
-    }
-
-    /**
-     * Get elapsed_time
-     *
-     * @return integer 
-     */
-    public function getElapsedTime()
-    {
-        return $this->elapsed_time;
-    }
-
-    /**
      * Set ship_class
      *
      * @param string $shipClass
@@ -240,44 +203,6 @@ class Participant
     }
 
     /**
-     * Set time_weighted_class
-     *
-     * @param float $timeWeightedClass
-     * @return Participant
-     */
-    public function setTimeWeightedClass($timeWeightedClass)
-    {
-        $this->time_weighted_class = $timeWeightedClass;
-    
-        return $this;
-    }
-
-    /**
-     * Get time_weighted_class
-     *
-     * @return float 
-     */
-    public function getTimeWeightedClass()
-    {
-        return $this->time_weighted_class;
-    }
-    
-    /**
-     * Get current_time_weighted_class
-     * 
-     * @return float
-     */
-    public function getCurrentTimeWeightedClass() {
-        if($this->time_weighted_class > 0) {
-            return $this->time_weighted_class;
-        } else {
-            $now = new \DateTime('now');
-            $elapsed_time = $now->getTimestamp() - $this->start_at->getTimestamp();
-            return $elapsed_time * $this->ship_weight;
-        }
-    }
-
-    /**
      * Set operation
      *
      * @param Wrath\OperationBundle\Entity\Operation $operation
@@ -321,18 +246,5 @@ class Participant
     public function getUser()
     {
         return $this->user;
-    }
-    
-    /**
-     * 
-     */
-    public function calculateWeights() {
-        if($this->start_at < $this->leave_at) {
-            $this->elapsed_time = $this->leave_at->getTimestamp() - $this->start_at->getTimestamp();
-            $this->time_weighted_class = $this->elapsed_time * $this->ship_weight;
-        } else {
-            $this->elapsed_time = 0;
-            $this->time_weighted_class = 0.0;
-        }
     }
 }
