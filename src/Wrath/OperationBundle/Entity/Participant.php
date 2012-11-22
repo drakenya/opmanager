@@ -68,7 +68,7 @@ class Participant
     /**
      * @var float $ship_weight
      *
-     * @ORM\Column(name="ship_weight", type="decimal", nullable=true)
+     * @ORM\Column(name="ship_weight", type="decimal", scale=1, nullable=true)
      */
     private $ship_weight;
 
