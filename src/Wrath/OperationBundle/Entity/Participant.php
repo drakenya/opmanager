@@ -247,4 +247,16 @@ class Participant
     {
         return $this->user;
     }
+    
+    /**
+     * 
+     */
+    public function getTotalShipWeight() {
+        if($this->getLeaveAt()) {
+            return ($this->getLeaveAt()->getTimestamp() - $this->getStartAt()->getTimestamp()) * $this->getShipWeight();
+        } else {
+            $now = new \DateTime('now');
+            return ($now->getTimestamp() - $this->getStartAt()->getTimestamp()) * $this->getShipWeight();
+        }
+    }
 }
