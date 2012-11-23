@@ -1,0 +1,30 @@
+lineitem:
+    pattern:  /
+    defaults: { _controller: "WrathItemBundle:LineItem:index" }
+
+lineitem_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WrathItemBundle:LineItem:show" }
+
+lineitem_new:
+    pattern:  /new
+    defaults: { _controller: "WrathItemBundle:LineItem:new" }
+
+lineitem_create:
+    pattern:  /create
+    defaults: { _controller: "WrathItemBundle:LineItem:create" }
+    requirements: { _method: post }
+
+lineitem_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WrathItemBundle:LineItem:edit" }
+
+lineitem_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WrathItemBundle:LineItem:update" }
+    requirements: { _method: post }
+
+lineitem_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WrathItemBundle:LineItem:delete" }
+    requirements: { _method: post }

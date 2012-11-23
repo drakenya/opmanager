@@ -46,7 +46,7 @@ class LineItem
     /**
      * @var float
      *
-     * @ORM\Column(name="current_value", type="decimal")
+     * @ORM\Column(name="current_value", type="integer")
      */
     private $current_value;
 

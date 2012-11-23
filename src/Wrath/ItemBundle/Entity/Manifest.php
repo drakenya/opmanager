@@ -38,12 +38,18 @@ class Manifest
     /**
      * @var
      * 
-     * @ORM\OneToMany(targetEntity="LineItem", mappedBy="manifest")
+     * @ORM\OneToMany(targetEntity="LineItem", mappedBy="manifest", cascade={"persist"})
      * @ORM\JoinColumn(name="line_item_id", referencedColumnName="id")
      */
     protected $line_items;
-
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->line_items = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -99,14 +105,7 @@ class Manifest
     {
         return $this->user_id;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->line_items = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
+
     /**
      * Add line_items
      *
@@ -115,6 +114,7 @@ class Manifest
      */
     public function addLineItem(\Wrath\ItemBundle\Entity\LineItem $lineItems)
     {
+        $lineItems->setManifest($this);
         $this->line_items[] = $lineItems;
     
         return $this;

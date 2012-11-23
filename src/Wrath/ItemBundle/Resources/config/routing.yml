@@ -1,0 +1,7 @@
+wrath_item_manifest:
+    resource: "@WrathItemBundle/Resources/config/routing/manifest.yml"
+    prefix:   /manifest
+
+wrath_item_lineitem:
+    resource: "@WrathItemBundle/Resources/config/routing/lineitem.yml"
+    prefix:   /lineitem

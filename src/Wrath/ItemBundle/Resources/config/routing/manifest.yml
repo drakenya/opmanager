@@ -1,0 +1,30 @@
+manifest:
+    pattern:  /
+    defaults: { _controller: "WrathItemBundle:Manifest:index" }
+
+manifest_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "WrathItemBundle:Manifest:show" }
+
+manifest_new:
+    pattern:  /new
+    defaults: { _controller: "WrathItemBundle:Manifest:new" }
+
+manifest_create:
+    pattern:  /create
+    defaults: { _controller: "WrathItemBundle:Manifest:create" }
+    requirements: { _method: post }
+
+manifest_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "WrathItemBundle:Manifest:edit" }
+
+manifest_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "WrathItemBundle:Manifest:update" }
+    requirements: { _method: post }
+
+manifest_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "WrathItemBundle:Manifest:delete" }
+    requirements: { _method: post }

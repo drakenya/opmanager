@@ -1,0 +1,76 @@
+<html>
+    <head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    
+<h1>Manifest creation</h1>
+
+<form action="{{ path('manifest_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_row(form.user_id) }}
+    {{ form_row(form.operation_id) }}
+        
+    <h3>Line Items</h3>
+    <ul class="lineitems" data-prototype="{{ form_widget(form.line_items.vars.prototype)|e }}">
+        {# iterate over each existing LineItem and render #}
+        {% for line_item in form.line_items %}
+            <li>Item:</li>
+            <ul>
+                <li>{{ form_row(line_item.item_id) }}</li>
+                <li>{{ form_row(line_item.quantity) }}</li>
+                <li>{{ form_row(line_item.current_value) }}</li>
+            </ul>
+        {% endfor %}
+    </ul>
+    {{ form_rest(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('manifest') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+
+
+<script>
+    // Get the div that holds the collection of line_items
+    var collectionHolder = $('ul.lineitems');
+    
+    // setup an "add a line_item" link
+    var $addLineItemLink = $('<a href="#" class="add_line_item_link">Add a line_item</a>');
+    var $newLinkLi = $('<li></li>').append($addLineItemLink);
+    
+    jQuery(document).ready(function() {
+        // add the "add a line_item" anchor and li to the line_items ul
+        collectionHolder.append($newLinkLi);
+        
+        $addLineItemLink.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+            
+            // add a new line_item form (see next code block)
+            addLineItemForm(collectionHolder, $newLinkLi);
+        });
+    });
+    
+    function addLineItemForm(collectionHolder, $newLinkLi) {
+        // Get the data-prototype
+        var prototype = collectionHolder.attr('data-prototype');
+        
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on the current collection's length.
+        var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+        
+        // Display the form in the page as an li, before the "Add a line_item" link li
+        var $newFormLi = $('<li></li>').append(newForm);
+        $newLinkLi.before($newFormLi);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<h1>Manifest list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Operation_id</th>
+            <th>User_id</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('manifest_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.operationid }}</td>
+            <td>{{ entity.userid }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('manifest_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('manifest_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('manifest_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
