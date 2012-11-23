@@ -1,3 +1,8 @@
+wrath_item:
+    resource: "@WrathItemBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 wrath_operation:
     resource: "@WrathOperationBundle/Resources/config/routing.yml"
     prefix:   /
