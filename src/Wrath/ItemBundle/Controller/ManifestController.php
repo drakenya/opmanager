@@ -134,7 +134,7 @@ class ManifestController extends Controller
      *
      */
     public function updateAction(Request $request, $id)
-    {
+    {        
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('WrathItemBundle:Manifest')->find($id);
@@ -142,12 +142,34 @@ class ManifestController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Manifest entity.');
         }
+        
+        foreach($entity->getLineItems() as $line_item) {
+            $original_line_items[] = $line_item;
+        }
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new ManifestType(), $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            
+            // filter $original... to contain line_items no longer present
+            foreach($entity->getLineItems() as $line_item) {
+                $logger->err($line_item->getId());
+                foreach($original_line_items as $key => $to_delete) {
+                    if($to_delete->getId() === $line_item->getId()) {
+                        unset($original_line_items[$key]);
+                    }
+                }
+            }
+            
+            // remote the relationships and the entities
+            foreach($original_line_items as $line_item) {
+                $line_item->setManifest(null);
+                
+                $em->remove($line_item);
+            }
+            
             $em->persist($entity);
             $em->flush();
 
@@ -176,6 +198,10 @@ class ManifestController extends Controller
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Manifest entity.');
+            }
+            
+            foreach($entity->getLineItems() as $line_item) {
+                $em->remove($line_item);
             }
 
             $em->remove($entity);

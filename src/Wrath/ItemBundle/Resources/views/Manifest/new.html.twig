@@ -14,12 +14,13 @@
     <ul class="lineitems" data-prototype="{{ form_widget(form.line_items.vars.prototype)|e }}">
         {# iterate over each existing LineItem and render #}
         {% for line_item in form.line_items %}
-            <li>Item:</li>
-            <ul>
-                <li>{{ form_row(line_item.item_id) }}</li>
-                <li>{{ form_row(line_item.quantity) }}</li>
-                <li>{{ form_row(line_item.current_value) }}</li>
-            </ul>
+            <li class="onelineitem">Item:
+                <ul>
+                    <li>{{ form_row(line_item.item_id) }}</li>
+                    <li>{{ form_row(line_item.quantity) }}</li>
+                    <li>{{ form_row(line_item.current_value) }}</li>
+                </ul>
+            </li>
         {% endfor %}
     </ul>
     {{ form_rest(form) }}
@@ -46,6 +47,11 @@
     var $newLinkLi = $('<li></li>').append($addLineItemLink);
     
     jQuery(document).ready(function() {
+        // add a delete link to all of the existing line_item form li elements
+        collectionHolder.find('li.onelineitem').each(function() {
+            addLineItemFormDeleteLink($(this));
+        });
+        
         // add the "add a line_item" anchor and li to the line_items ul
         collectionHolder.append($newLinkLi);
         
@@ -69,6 +75,22 @@
         // Display the form in the page as an li, before the "Add a line_item" link li
         var $newFormLi = $('<li></li>').append(newForm);
         $newLinkLi.before($newFormLi);
+        
+        // add a delete link to the new form
+        addLineItemDeleteLink($newFormLi);
+    }
+    
+    function addLineItemFormDeleteLink($lineItemFormLi) {
+        var $removeFormA = $('<a href="#">delete this line_item</a>');
+        $lineItemFormLi.append($removeFormA);
+        
+        $removeFormA.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+            
+            // remove the li for the line_item form
+            $lineItemFormLi.remove();
+        });
     }
 </script>
 

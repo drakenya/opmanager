@@ -16,6 +16,7 @@ class ManifestType extends AbstractType
             ->add('line_items', 'collection', array(
                 'type' => new LineItemType(),
                 'allow_add' => true,
+                'allow_delete' => true,
                 'by_reference' => false,
             ));
         ;
