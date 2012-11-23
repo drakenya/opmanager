@@ -65,6 +65,13 @@ class Operation
      * @ORM\Column(name="total_value", type="integer")
      */
     private $total_value;
+    
+    /**
+     * @var string $status
+     * 
+     * @ORM\Column(name="status", type="string")
+     */
+    private $status;
         
     /**
      * 
@@ -72,6 +79,7 @@ class Operation
     public function __construct() {
         $this->participants = new ArrayCollection();
         
+        $this->status = 'IN_PROGRESS';
         $this->start_at = new \DateTime('now');
     }
 
@@ -147,6 +155,7 @@ class Operation
     
     public function end($endAt) {
         $this->setEndAt($endAt);
+        $this->setStatus('COMPLETED');
         
         foreach($this->getParticipants() as $participant) {
             if(!$participant->getLeaveAt()) {
@@ -242,6 +251,29 @@ class Operation
     public function getParticipants()
     {
         return $this->participants;
+    }
+    
+        /**
+     * Set status
+     *
+     * @param string $status
+     * @return Operation
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
     
     /**

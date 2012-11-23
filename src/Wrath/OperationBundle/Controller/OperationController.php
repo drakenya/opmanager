@@ -195,7 +195,7 @@ class OperationController extends Controller
             throw $this->createNotFoundException('Unable to find Operation entity.');
         }
         
-        if($entity->getEndAt() == null) {
+        if($entity->getStatus() === 'IN_PROGRESS') {
             $entity->end(new \DateTime('now'));
         }
         $em->flush();
