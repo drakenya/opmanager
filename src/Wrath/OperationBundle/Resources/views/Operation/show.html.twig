@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <th>End_at</th>
-            <td>{{ entity.endat|date('Y-m-d H:i:s') }}</td>
+            <td>{% if entity.endat %}{{ entity.endat|date('Y-m-d H:i:s') }}{% endif %}</td>
         </tr>
         <tr>
             <th>Total_value</th>

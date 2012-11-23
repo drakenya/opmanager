@@ -13,7 +13,6 @@ class OperationType extends AbstractType
         $builder
             ->add('name')
             ->add('start_at')
-            ->add('end_at')
             ->add('total_value')
         ;
     }

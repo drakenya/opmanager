@@ -196,7 +196,7 @@ class OperationController extends Controller
         }
         
         if($entity->getEndAt() == null) {
-            $entity->setEndAt(new \DateTime('now'));
+            $entity->end(new \DateTime('now'));
         }
         $em->flush();
         
@@ -261,7 +261,6 @@ class OperationController extends Controller
         ));
         if($participant) {
             $participant->setLeaveAt(new \DateTime('now'));
-            $participant->calculateWeights();
         }
         $em->flush();
         
