@@ -16,7 +16,7 @@
         {% for line_item in form.line_items %}
             <li class="onelineitem">Item:
                 <ul>
-                    <li>{{ form_row(line_item.item_id) }}</li>
+                    <li>{{ form_row(line_item.item) }}</li>
                     <li>{{ form_row(line_item.quantity) }}</li>
                     <li>{{ form_row(line_item.current_value) }}</li>
                 </ul>

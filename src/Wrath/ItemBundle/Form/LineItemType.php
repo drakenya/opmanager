@@ -11,9 +11,12 @@ class LineItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('item_id')
+            ->add('item', 'entity', array(
+                'class' => 'WrathItemBundle:Item',
+                'property' => 'name',
+            ))
             ->add('quantity')
-            ->add('current_value')
+            //->add('current_value')
             //->add('manifest')
         ;
     }

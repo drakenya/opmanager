@@ -30,11 +30,12 @@ class LineItem
     private $manifest;
 
     /**
-     * @var integer
+     * @var \Wrath\ItemBundle\Entity\Item $item
      *
-     * @ORM\Column(name="item_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="Wrath\ItemBundle\Entity\Item")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id")
      */
-    private $item_id;
+    private $item;
 
     /**
      * @var integer
@@ -62,26 +63,26 @@ class LineItem
     }
 
     /**
-     * Set item_id
+     * Set item
      *
-     * @param integer $itemId
+     * @param \Wrath\ItemBundle\Entity\Item $item
      * @return LineItem
      */
-    public function setItemId($itemId)
+    public function setItem(\Wrath\ItemBundle\Entity\Item $item = null)
     {
-        $this->item_id = $itemId;
+        $this->item = $item;
     
         return $this;
     }
 
     /**
-     * Get item_id
+     * Get item
      *
-     * @return integer 
+     * @return \Wrath\ItemBundle\Entity\Item
      */
-    public function getItemId()
+    public function getItem()
     {
-        return $this->item_id;
+        return $this->item;
     }
 
     /**

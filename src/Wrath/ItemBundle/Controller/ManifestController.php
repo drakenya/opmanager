@@ -57,22 +57,8 @@ class ManifestController extends Controller
      */
     public function newAction()
     {
-        $line_item1 = new LineItem();
-        $line_item1->setItemId(1);
-        $line_item1->setQuantity(2);
-        $line_item1->setCurrentvalue(2);
-        
-        $line_item2 = new LineItem();
-        $line_item2->setItemId(10);
-        $line_item2->setQuantity(20);
-        $line_item2->setCurrentvalue(200);
-        
-        
         $entity = new Manifest();
-        
-        $entity->getLineItems()->add($line_item1);
-        $entity->getLineItems()->add($line_item2);
-        
+
         $form   = $this->createForm(new ManifestType(), $entity);
 
         return $this->render('WrathItemBundle:Manifest:new.html.twig', array(
@@ -92,6 +78,9 @@ class ManifestController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
+            foreach($entity->getLineItems() as $line_item) {
+                $line_item->setCurrentValue( $line_item->getItem()->getPrice() );
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -155,7 +144,6 @@ class ManifestController extends Controller
             
             // filter $original... to contain line_items no longer present
             foreach($entity->getLineItems() as $line_item) {
-                $logger->err($line_item->getId());
                 foreach($original_line_items as $key => $to_delete) {
                     if($to_delete->getId() === $line_item->getId()) {
                         unset($original_line_items[$key]);
@@ -168,6 +156,10 @@ class ManifestController extends Controller
                 $line_item->setManifest(null);
                 
                 $em->remove($line_item);
+            }
+            
+            foreach($entity->getLineItems() as $line_item) {
+                $line_item->setCurrentValue( $line_item->getItem()->getPrice() );
             }
             
             $em->persist($entity);
