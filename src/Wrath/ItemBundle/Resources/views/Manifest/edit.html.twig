@@ -18,7 +18,6 @@
                 <ul>
                     <li>{{ form_row(line_item.item) }}</li>
                     <li>{{ form_row(line_item.quantity) }}</li>
-                    <li>{{ form_row(line_item.current_value) }}</li>
                 </ul>
             </li>
         {% endfor %}
@@ -82,7 +81,7 @@
         $newLinkLi.before($newFormLi);
         
         // add a delete link to the new form
-        addLineItemDeleteLink($newFormLi);
+        addLineItemFormDeleteLink($newFormLi);
     }
     
     function addLineItemFormDeleteLink($lineItemFormLi) {
