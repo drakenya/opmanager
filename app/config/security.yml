@@ -15,16 +15,22 @@ security:
         id: fos_user.user_provider.username
 
     firewalls:
+      public:
+        pattern: ^/(login$|register|resetting)
+        anonymous: true
       main:
         pattern: ^/
         form_login:
           provider: fos_userbundle
           csrf_provider: form.csrf_provider
+          login_path: /login
+          check_path: /login_check
+          always_use_default_target_path: true
+          default_target_path: /
         logout: true
-        anonymous: ~
+        anonymous: false
 
     access_control:
       - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-      - { path: ^/admin/, role: ROLE_ADMIN }
