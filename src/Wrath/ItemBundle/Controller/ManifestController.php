@@ -55,7 +55,7 @@ class ManifestController extends Controller
      * Displays a form to create a new Manifest entity.
      *
      */
-    public function newAction()
+    public function newAction($operation_id)
     {
         $entity = new Manifest();
 
@@ -64,6 +64,7 @@ class ManifestController extends Controller
         return $this->render('WrathItemBundle:Manifest:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'operation_id' => $operation_id
         ));
     }
 
@@ -71,8 +72,10 @@ class ManifestController extends Controller
      * Creates a new Manifest entity.
      *
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $operation_id)
     {
+        $em = $this->getDoctrine()->getManager();
+        
         $entity  = new Manifest();
         $form = $this->createForm(new ManifestType(), $entity);
         $form->bind($request);
@@ -80,6 +83,9 @@ class ManifestController extends Controller
         if ($form->isValid()) {
             $user = $this->container->get('security.context')->getToken()->getUser();
             $entity->setUser($user);
+            
+            $operation = $em->getRepository('WrathOperationBundle:Operation')->find($operation_id);
+            $entity->setOperation($operation);
             
             foreach($entity->getLineItems() as $line_item) {
                 $line_item->setCurrentValue( $line_item->getItem()->getPrice() );

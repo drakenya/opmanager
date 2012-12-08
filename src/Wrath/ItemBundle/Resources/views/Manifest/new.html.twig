@@ -9,8 +9,7 @@
     
 <h1>Manifest creation</h1>
 
-<form action="{{ path('manifest_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_row(form.operation_id) }}
+<form action="{{ path('manifest_create', { 'operation_id': operation_id }) }}" method="post" {{ form_enctype(form) }}>
         
     <h3>Line Items</h3>
     <ul class="lineitems" data-prototype="{{ form_widget(form.line_items.vars.prototype)|e }}">

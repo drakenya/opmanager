@@ -11,7 +11,6 @@ class ManifestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('operation_id')
             ->add('line_items', 'collection', array(
                 'type' => new LineItemType(),
                 'allow_add' => true,

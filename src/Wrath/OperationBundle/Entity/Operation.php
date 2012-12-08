@@ -82,7 +82,13 @@ class Operation
         $this->status = 'IN_PROGRESS';
         $this->start_at = new \DateTime('now');
     }
-
+    
+    /**
+     * 
+     */
+    public function __toString() {
+        return $this->name;
+    }
 
     /**
      * Get id

@@ -7,11 +7,11 @@ manifest_show:
     defaults: { _controller: "WrathItemBundle:Manifest:show" }
 
 manifest_new:
-    pattern:  /new
+    pattern:  /new/{operation_id}
     defaults: { _controller: "WrathItemBundle:Manifest:new" }
 
 manifest_create:
-    pattern:  /create
+    pattern:  /create/{operation_id}
     defaults: { _controller: "WrathItemBundle:Manifest:create" }
     requirements: { _method: post }
 

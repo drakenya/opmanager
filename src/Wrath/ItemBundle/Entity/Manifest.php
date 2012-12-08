@@ -22,11 +22,12 @@ class Manifest
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="operation_id", type="integer")
+     * @var \Wrath\OperationBundle\Entity\Operation $operation
+     * 
+     * @ORM\ManyToOne(targetEntity="Wrath\OperationBundle\Entity\Operation")
+     * @ORM\JoinColumn(name="operation_id", referencedColumnName="id")
      */
-    private $operation_id;
+    private $operation;
 
     /**
      * @var \Wrath\UserBundle\Entity\User $creator
@@ -63,26 +64,26 @@ class Manifest
     }
 
     /**
-     * Set operation_id
+     * Set operation
      *
-     * @param integer $operationId
+     * @param Wrath\OperationBundle\Entity\Operation $operation
      * @return Manifest
      */
-    public function setOperationId($operationId)
+    public function setOperation($operation)
     {
-        $this->operation_id = $operationId;
+        $this->operation = $operation;
     
         return $this;
     }
 
     /**
-     * Get operation_id
+     * Get operation
      *
-     * @return integer 
+     * @return Wrath\OperationBundle\Entity\Operation 
      */
-    public function getOperationId()
+    public function getOperation()
     {
-        return $this->operation_id;
+        return $this->operation;
     }
 
     /**
