@@ -29,11 +29,12 @@ class Manifest
     private $operation_id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="user_id", type="integer")
+     * @var \Wrath\UserBundle\Entity\User $creator
+     * 
+     * @ORM\ManyToOne(targetEntity="Wrath\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user_id;
+    private $user;
     
     /**
      * @var
@@ -42,6 +43,7 @@ class Manifest
      * @ORM\JoinColumn(name="line_item_id", referencedColumnName="id")
      */
     protected $line_items;
+    
     /**
      * Constructor
      */
@@ -84,26 +86,26 @@ class Manifest
     }
 
     /**
-     * Set user_id
+     * Set user
      *
-     * @param integer $userId
+     * @param Wrath\UserBundle\Entity\User $user
      * @return Manifest
      */
-    public function setUserId($userId)
+    public function setUser($user)
     {
-        $this->user_id = $userId;
+        $this->user = $user;
     
         return $this;
     }
 
     /**
-     * Get user_id
+     * Get user
      *
-     * @return integer 
+     * @return Wrath\UserBundle\Entity\User 
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->user_id;
+        return $this->user;
     }
 
     /**

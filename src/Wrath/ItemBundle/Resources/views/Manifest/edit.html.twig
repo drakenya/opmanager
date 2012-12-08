@@ -10,7 +10,6 @@
 <h1>Manifest edit</h1>
 
 <form action="{{ path('manifest_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_row(edit_form.user_id) }}
     {{ form_row(edit_form.operation_id) }}
         
     <h3>Line Items</h3>

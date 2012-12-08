@@ -12,7 +12,6 @@ class ManifestType extends AbstractType
     {
         $builder
             ->add('operation_id')
-            ->add('user_id')
             ->add('line_items', 'collection', array(
                 'type' => new LineItemType(),
                 'allow_add' => true,

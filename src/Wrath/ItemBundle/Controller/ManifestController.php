@@ -78,6 +78,9 @@ class ManifestController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
+            $user = $this->container->get('security.context')->getToken()->getUser();
+            $entity->setUser($user);
+            
             foreach($entity->getLineItems() as $line_item) {
                 $line_item->setCurrentValue( $line_item->getItem()->getPrice() );
             }

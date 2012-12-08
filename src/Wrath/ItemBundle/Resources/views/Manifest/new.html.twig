@@ -10,7 +10,6 @@
 <h1>Manifest creation</h1>
 
 <form action="{{ path('manifest_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_row(form.user_id) }}
     {{ form_row(form.operation_id) }}
         
     <h3>Line Items</h3>
