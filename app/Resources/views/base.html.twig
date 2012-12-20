@@ -7,7 +7,15 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        {% block navigation %}
+            <ul>
+                <li><a href="{{ path('operation') }}">/operation</a></li>
+            </ul>
+        {% endblock %}
+            
         {% block body %}{% endblock %}
+            
+        {% block footer %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
