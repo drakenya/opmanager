@@ -161,7 +161,7 @@ class Operation
     
     public function end($endAt) {
         $this->setEndAt($endAt);
-        $this->setStatus('COMPLETED');
+        $this->setStatus('ENDED');
         
         foreach($this->getParticipants() as $participant) {
             if(!$participant->getLeaveAt()) {
@@ -259,7 +259,7 @@ class Operation
         return $this->participants;
     }
     
-        /**
+    /**
      * Set status
      *
      * @param string $status
@@ -293,5 +293,28 @@ class Operation
         }
         
         return $total_weight;
+    }
+    
+    /**
+     * 
+     */
+    public function isOngoing()
+    {
+        return 'IN_PROGRESS' == $this->getStatus();
+    }
+    
+    public function isEndable()
+    {
+        return 'IN_PROGRESS' == $this->getStatus();
+    }
+    
+    public function isConfirmable()
+    {
+        return 'ENDED' == $this->getStatus();
+    }
+    
+    public function isPayable()
+    {
+        return 'CONFIRMED' == $this->getStatus();
     }
 }

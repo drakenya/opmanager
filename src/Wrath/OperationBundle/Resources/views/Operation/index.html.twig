@@ -27,23 +27,34 @@
                     <li>
                         <a href="{{ path('operation_show', { 'id': entity.id }) }}">show</a>
                     </li>
+                    
                     <li>
                         <a href="{{ path('operation_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
-                    {% if not entity.endat %}
+                    
+                    {% if entity.isendable %}
                     <li>
                         <a href="{{ path('operation_end', { 'id': entity.id }) }}">end</a>
                     </li>
                     {% endif %}
+                    
+                    {% if entity.isongoing %}
                     <li>
                         <a href="{{ path('operation_join', { 'id': entity.id }) }}">join</a>
                     </li>
+                    {% endif %}
+                    
+                    {% if entity.isongoing %}
                     <li>
                         <a href="{{ path('operation_leave', { 'id': entity.id }) }}">leave</a>
                     </li>
+                    {% endif %}
+                    
+                    {% if entity.isongoing %}
                     <li>
                         <a href="{{ path('manifest_new', { 'operation_id': entity.id }) }}">add haul</a>
                     </li>
+                    {% endif %}
                 </ul>
             </td>
         </tr>
