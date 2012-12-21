@@ -251,12 +251,28 @@ class Participant
     /**
      * 
      */
-    public function getTotalShipWeight() {
+    public function getTotalShipTimeWeight() {
         if($this->getLeaveAt()) {
             return ($this->getLeaveAt()->getTimestamp() - $this->getStartAt()->getTimestamp()) * $this->getShipWeight();
         } else {
             $now = new \DateTime('now');
             return ($now->getTimestamp() - $this->getStartAt()->getTimestamp()) * $this->getShipWeight();
         }
+    }
+    
+    /**
+     * 
+     */
+    public function getTimeInOperation()
+    {
+        
+        if ($this->getLeaveAt())
+        {
+            $end_time = $this->getLeaveAt();
+        } else {
+            $end_time = new \DateTime('now');
+        }
+        
+        return $end_time->getTimestamp() - $this->getStartAt()->getTimestamp();
     }
 }

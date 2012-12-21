@@ -25,7 +25,35 @@
             <th>Total_value</th>
             <td>{{ entity.totalvalue }}</td>
         </tr>
+        <tr>
+            <th>Total Weight</th>
+            <td>{{ entity.getParticipantTotalWeight }}</td>
     </tbody>
+</table>
+
+<h2>Participants:</h2>
+<table class="record_properties">
+    <tr>
+        <th>Name</th>
+        <th>Join</th>
+        <th>Part</th>
+        <th>Time in Op</th>
+        <th>Weight</th>
+        <th>Time Weight</th>
+        <th>Weighted Value</th>
+    </tr>
+    
+    {% for participant in entity.participants %}
+    <tr>
+        <td>{{ participant.user.id }}</td>
+        <td>{{ participant.startat|date('Y-m-d H:i:s') }}</td>
+        <td>{{ participant.leaveat|date('Y-m-d H:i:s') }}</td>
+        <td>{{ participant.getTimeInOperation }} </td>
+        <td>{{ participant.shipweight }}</td>
+        <td>{{ participant.getTotalShipTimeWeight }}</td>
+        <td>{{ (entity.totalvalue / entity.getParticipantTotalWeight) * participant.getTotalShipTimeWeight }}</td>
+    </tr>
+    {% endfor %}
 </table>
 
 <ul class="record_actions">

@@ -317,4 +317,17 @@ class Operation
     {
         return 'CONFIRMED' == $this->getStatus();
     }
+    
+    /**
+     * 
+     */
+    public function getParticipantTotalWeight()
+    {
+        $total_weight = 0.0;
+        foreach ($this->getParticipants() as $participant)
+        {
+            $total_weight += $participant->getTotalShipTimeWeight();
+        }
+        return $total_weight;
+    }
 }
