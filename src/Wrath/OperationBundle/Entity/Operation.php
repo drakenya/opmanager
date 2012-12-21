@@ -31,7 +31,7 @@ class Operation
     private $creator;
     
     /**
-     * @var
+     * @var \Wrath\OperationBundle\Entity\Participant
      * 
      * @ORM\OneToMany(targetEntity="Participant", mappedBy="operation")
      * @ORM\JoinColumn(name="participant_id", referencedColumnName="id")

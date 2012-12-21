@@ -1,3 +1,7 @@
+wrath_accounting:
+    resource: "@WrathAccountingBundle/Resources/config/routing.yml"
+    prefix:   /
+
 wrath_operation:
     resource: "@WrathOperationBundle/Resources/config/routing.yml"
     prefix:   /

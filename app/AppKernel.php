@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Wrath\OperationBundle\WrathOperationBundle(),
             new Wrath\ItemBundle\WrathItemBundle(),
+            new Wrath\AccountingBundle\WrathAccountingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

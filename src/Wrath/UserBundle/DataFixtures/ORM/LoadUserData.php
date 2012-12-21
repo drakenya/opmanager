@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Wrath\UserBundle\Entity\User;
+use Wrath\AccountingBundle\Entity\Transaction;
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface {
     /**
@@ -18,6 +19,12 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface {
         $userAdmin->setEnabled(true);
         $userAdmin->setExpired(false);
         $userAdmin->setPlainPassword('admin');
+        
+        $userAdminPrimaryAccount = $userAdmin->getPrimaryAccount();
+        $transaction = new Transaction();
+        $transaction->setAmount(1000);
+        $transaction->setDescription('Initial testing');
+        $userAdminPrimaryAccount->addTransaction($transaction);
         
         $userNormal = new User();
         $userNormal->setUsername('normal');

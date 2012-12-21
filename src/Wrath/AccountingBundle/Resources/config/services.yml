@@ -1,0 +1,7 @@
+parameters:
+#    wrath_accounting.example.class: Wrath\AccountingBundle\Example
+
+services:
+#    wrath_accounting.example:
+#        class: %wrath_accounting.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
