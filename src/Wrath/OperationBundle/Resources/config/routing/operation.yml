@@ -32,7 +32,15 @@ operation_delete:
 operation_end:
     pattern: /{id}/end
     defaults: { _controller: "WrathOperationBundle:Operation:end" }
-  
+
+operation_confirm:
+    pattern: /{id}/confirm
+    defaults: { _controller: "WrathOperationBundle:Operation:confirm" }
+    
+operation_pay:
+    pattern: /{id}/pay
+    defaults: { _controller: "WrathOperationBundle:Operation:pay" }
+    
 operation_join:
     pattern: /{id}/join
     defaults: { _controller: "WrathOperationBundle:Operation:join" }

@@ -195,8 +195,50 @@ class OperationController extends Controller
             throw $this->createNotFoundException('Unable to find Operation entity.');
         }
         
-        if($entity->getStatus() === 'IN_PROGRESS') {
+        if($entity->isEndable()) {
             $entity->end(new \DateTime('now'));
+        }
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('operation_show', array('id' => $id)));
+    }
+    
+    /**
+     * Confirm the current operation
+     */
+    public function confirmAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('WrathOperationBundle:Operation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Operation entity.');
+        }
+        
+        if($entity->isConfirmable()) {
+            $entity->confirm();
+        }
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('operation_show', array('id' => $id)));
+    }
+    
+    /**
+     * Pay the current operation
+     */
+    public function payAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('WrathOperationBundle:Operation')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Operation entity.');
+        }
+        
+        if($entity->isPayable()) {
+            $entity->pay();
         }
         $em->flush();
         

@@ -44,6 +44,12 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
         $operation->end(new \DateTime('now'));
         $manager->persist($operation);
         $manager->flush();
+                
+        $operation->confirm();
+        $manager->flush();
+        
+        $operation->pay();
+        $manager->flush();
         
         $participantAdminOne = new Participant();
         $participantAdminOne->setUser($this->getReference('user-admin'));

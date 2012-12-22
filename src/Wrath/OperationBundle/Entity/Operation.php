@@ -170,6 +170,27 @@ class Operation
             }
         }
     }
+    
+    public function confirm()
+    {
+        $this->setStatus('CONFIRMED');
+    }
+    
+    public function pay()
+    {
+        $this->setStatus('PAID');
+        
+        foreach ($this->getParticipants() as $participant)
+        {
+            // entity.getTotalGrossValue / entity.getParticipantTotalWeight) * participant.getTotalShipTimeWeight
+            $payout = ($this->getTotalGrossValue() / $this->getParticipantTotalWeight()) * $participant->getTotalShipTimeWeight();
+            $wallet = $participant->getUser()->getPrimaryAccount();
+            $transaction = new \Wrath\AccountingBundle\Entity\Transaction();
+            $transaction->setAmount($payout);
+            $transaction->setDescription('Payout for Operation #:'. $this->getId());
+            $wallet->addTransaction($transaction);
+        }
+    }
 
     /**
      * Get end_at

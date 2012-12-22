@@ -55,6 +55,18 @@
                         <a href="{{ path('manifest_new', { 'operation_id': entity.id }) }}">add haul</a>
                     </li>
                     {% endif %}
+                    
+                    {% if entity.confirmable %}
+                    <li>
+                        <a href="{{ path('operation_confirm', { 'id': entity.id }) }}">confirm</a>
+                    </li>
+                    {% endif %}
+                    
+                    {% if entity.payable %}
+                    <li>
+                        <a href="{{ path('operation_pay', { 'id': entity.id }) }}">pay</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </td>
         </tr>
