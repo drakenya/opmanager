@@ -10,7 +10,7 @@
             <th>Name</th>
             <th>Start_at</th>
             <th>End_at</th>
-            <th>Total_value</th>
+            <th>Total Net Value</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -21,7 +21,7 @@
             <td>{{ entity.name }}</td>
             <td>{% if entity.startat %}{{ entity.startat|date('Y-m-d H:i:s') }}{% endif %}</td>
             <td>{% if entity.endat %}{{ entity.endat|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.totalvalue }}</td>
+            <td>{{ entity.getTotalNetValue }}</td>
             <td>
                 <ul>
                     <li>

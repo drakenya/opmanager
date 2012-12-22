@@ -14,6 +14,10 @@
             <td>{{ entity.name }}</td>
         </tr>
         <tr>
+            <th>Status</th>
+            <td>{{ entity.status }}</td>
+        </tr>
+        <tr>
             <th>Start_at</th>
             <td>{{ entity.startat|date('Y-m-d H:i:s') }}</td>
         </tr>
@@ -22,12 +26,17 @@
             <td>{% if entity.endat %}{{ entity.endat|date('Y-m-d H:i:s') }}{% endif %}</td>
         </tr>
         <tr>
-            <th>Total_value</th>
-            <td>{{ entity.totalvalue }}</td>
+            <th>Total Net Value</th>
+            <td>{{ entity.getTotalNetValue }}</td>
+        </tr>
+        <tr>
+            <th>Total Gross Value</th>
+            <td>{{ entity.getTotalGrossValue }}</td>
         </tr>
         <tr>
             <th>Total Weight</th>
             <td>{{ entity.getParticipantTotalWeight }}</td>
+        </tr>
     </tbody>
 </table>
 
@@ -51,7 +60,7 @@
         <td>{{ participant.getTimeInOperation }} </td>
         <td>{{ participant.shipweight }}</td>
         <td>{{ participant.getTotalShipTimeWeight }}</td>
-        <td>{{ (entity.totalvalue / entity.getParticipantTotalWeight) * participant.getTotalShipTimeWeight }}</td>
+        <td>{{ (entity.getTotalGrossValue / entity.getParticipantTotalWeight) * participant.getTotalShipTimeWeight }}</td>
     </tr>
     {% endfor %}
 </table>

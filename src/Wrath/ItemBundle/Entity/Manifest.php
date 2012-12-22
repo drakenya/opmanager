@@ -142,4 +142,18 @@ class Manifest
     {
         return $this->line_items;
     }
+    
+    /**
+     * @return float
+     */
+    public function getTotalValue()
+    {
+        $total_value = 0.0;
+        foreach ($this->getLineItems() as $line_item)
+        {
+            $total_value += ($line_item->getQuantity() * $line_item->getCurrentValue());
+        }
+        
+        return $total_value;
+    }
 }

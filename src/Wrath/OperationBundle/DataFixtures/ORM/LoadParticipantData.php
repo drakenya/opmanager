@@ -32,14 +32,41 @@ class LoadParticipantData extends AbstractFixture implements OrderedFixtureInter
 
         $participantUserTwo->setStartAt($participantUserTwo->getJoinAt());
         
+        $leave_at = new \DateTime('now');
+        $leave_at->add(new \DateInterval('PT7M'));
+        $participantUserTwo->setLeaveAt($leave_at);
+        
         $manager->persist($participantUserOne);
         $manager->persist($participantUserTwo);
         $manager->flush();
         
         $operation = $this->getReference('operation-normal');
         $operation->end(new \DateTime('now'));
-        //$operation->setTotalTimeWeightedClass();
         $manager->persist($operation);
+        $manager->flush();
+        
+        $participantAdminOne = new Participant();
+        $participantAdminOne->setUser($this->getReference('user-admin'));
+        $participantAdminOne->setOperation($this->getReference('operation-admin'));
+        $participantAdminOne->setShipClass('Admin One Class');
+        $participantAdminOne->setShipWeight(2.3);
+
+        $participantAdminOne->setStartAt($participantAdminOne->getJoinAt());
+        
+        $leave_at = new \DateTime('now');
+        $leave_at->add(new \DateInterval('PT10M'));
+        $participantAdminOne->setLeaveAt($leave_at);
+        
+        $participantAdminTwo = new Participant();
+        $participantAdminTwo->setUser($this->getReference('user-normal'));
+        $participantAdminTwo->setOperation($this->getReference('operation-admin'));
+        $participantAdminTwo->setShipClass('Admin Two Class');
+        $participantAdminTwo->setShipWeight(5.1);
+
+        $participantAdminTwo->setStartAt($participantAdminTwo->getJoinAt());
+        
+        $manager->persist($participantAdminOne);
+        $manager->persist($participantAdminTwo);
         $manager->flush();
     }
     

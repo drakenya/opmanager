@@ -32,7 +32,7 @@ class LineItem
     /**
      * @var \Wrath\ItemBundle\Entity\Item $item
      *
-     * @ORM\ManyToOne(targetEntity="Wrath\ItemBundle\Entity\Item")
+     * @ORM\ManyToOne(targetEntity="Wrath\ItemBundle\Entity\Item", cascade={"persist"})
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id")
      */
     private $item;

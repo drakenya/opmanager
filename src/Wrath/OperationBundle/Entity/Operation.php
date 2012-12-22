@@ -58,13 +58,6 @@ class Operation
      * @ORM\Column(name="end_at", type="datetime", nullable=true)
      */
     private $end_at;
-
-    /**
-     * @var integer $total_value
-     *
-     * @ORM\Column(name="total_value", type="integer")
-     */
-    private $total_value;
     
     /**
      * @var string $status
@@ -72,6 +65,14 @@ class Operation
      * @ORM\Column(name="status", type="string")
      */
     private $status;
+    
+    /**
+     * @var \Wrath\ItemBundle\Entity\Manifest
+     * 
+     * @ORM\OneToMany(targetEntity="\Wrath\ItemBundle\Entity\Manifest", mappedBy="operation", cascade={"persist"})
+     * @ORM\JoinColumn(name="manifest_id", referencedColumnName="id")
+     */
+    protected $manifests;
         
     /**
      * 
@@ -194,16 +195,6 @@ class Operation
     }
 
     /**
-     * Get total_value
-     *
-     * @return integer 
-     */
-    public function getTotalValue()
-    {
-        return $this->total_value;
-    }
-
-    /**
      * Set creator
      *
      * @param Wrath\UserBundle\Entity\User $creator
@@ -283,6 +274,40 @@ class Operation
     }
     
     /**
+     * Add manifests
+     *
+     * @param \Wrath\ItemBundle\Entity\Manifest $manifests
+     * @return Operation
+     */
+    public function addManifest(\Wrath\ItemBundle\Entity\Manifest $manifests)
+    {
+        $manifests->setOperation($this);
+        $this->manifests[] = $manifests;
+    
+        return $this;
+    }
+
+    /**
+     * Remove manifests
+     *
+     * @param \Wrath\ItemBundle\Entity\Manifest $manifests
+     */
+    public function removeManifest(\Wrath\ItemBundle\Entity\Manifest $manifests)
+    {
+        $this->manifests->removeElement($manifests);
+    }
+
+    /**
+     * Get manifests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getManifests()
+    {
+        return $this->manifests;
+    }
+    
+    /**
      * 
      */
     public function getTotalWeight() {
@@ -329,5 +354,26 @@ class Operation
             $total_weight += $participant->getTotalShipTimeWeight();
         }
         return $total_weight;
+    }
+    
+    /**
+     * @return float
+     */
+    public function getTotalNetValue()
+    {
+        $total_net_value = 0.0;
+        foreach ($this->getManifests() as $manifest) {
+            $total_net_value += $manifest->getTotalValue();
+        }
+        
+        return $total_net_value;
+    }
+    
+    /**
+     * @return float
+     */
+    public function getTotalGrossValue()
+    {
+        return $this->getTotalNetValue();
     }
 }
