@@ -25,6 +25,9 @@ class AppKernel extends Kernel
             new Wrath\OperationBundle\WrathOperationBundle(),
             new Wrath\ItemBundle\WrathItemBundle(),
             new Wrath\AccountingBundle\WrathAccountingBundle(),
+            new Wrath\ContentBundle\WrathContentBundle(),
+            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new Sonata\FormatterBundle\SonataFormatterBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

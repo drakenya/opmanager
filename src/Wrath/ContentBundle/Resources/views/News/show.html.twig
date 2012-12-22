@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<h1>News</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ entity.title }}</td>
+        </tr>
+        <tr>
+            <th>Timestamp</th>
+            <td>{{ entity.timestamp|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Slug</th>
+            <td>{{ entity.slug }}</td>
+        </tr>
+        <tr>
+            <th>Content</th>
+            <td>{{ entity.content }}</td>
+        </tr>
+        <tr>
+            <th>Formatted Content</th>
+            <td>{{ entity.content|format_text('markdown')|raw }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('news') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('news_edit', { 'slug': entity.slug }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('news_delete', { 'slug': entity.slug }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+
+{% endblock %}

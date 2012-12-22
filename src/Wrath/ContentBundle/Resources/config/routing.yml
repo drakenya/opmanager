@@ -1,0 +1,3 @@
+wrath_content_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: WrathContentBundle:Default:index }

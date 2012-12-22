@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: doctrine_extensions.yml }
 
 framework:
     #esi:             ~
@@ -60,6 +61,21 @@ swiftmailer:
 
 # FOSUserBundle
 fos_user:
-  db_driver: orm
-  firewall_name: main
-  user_class: Wrath\UserBundle\Entity\User
+    db_driver: orm
+    firewall_name: main
+    user_class: Wrath\UserBundle\Entity\User
+  
+# Sonata formatter
+sonata_formatter:
+    formatters:
+        markdown:
+            service: sonata.formatter.text.markdown
+            extensions: []
+
+        text:
+            service: sonata.formatter.text.text
+            extensions: []
+
+        twig:
+            service: sonata.formatter.text.twigengine
+            extensions: [] # Twig formatter cannot have extensions

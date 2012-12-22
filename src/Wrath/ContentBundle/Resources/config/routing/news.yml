@@ -1,0 +1,30 @@
+news:
+    pattern:  /
+    defaults: { _controller: "WrathContentBundle:News:index" }
+
+news_show:
+    pattern:  /{slug}/show
+    defaults: { _controller: "WrathContentBundle:News:show" }
+
+news_new:
+    pattern:  /new
+    defaults: { _controller: "WrathContentBundle:News:new" }
+
+news_create:
+    pattern:  /create
+    defaults: { _controller: "WrathContentBundle:News:create" }
+    requirements: { _method: post }
+
+news_edit:
+    pattern:  /{slug}/edit
+    defaults: { _controller: "WrathContentBundle:News:edit" }
+
+news_update:
+    pattern:  /{slug}/update
+    defaults: { _controller: "WrathContentBundle:News:update" }
+    requirements: { _method: post }
+
+news_delete:
+    pattern:  /{slug}/delete
+    defaults: { _controller: "WrathContentBundle:News:delete" }
+    requirements: { _method: post }

@@ -1,3 +1,7 @@
+wrath_content:
+    resource: "@WrathContentBundle/Resources/config/routing.yml"
+    prefix:   /
+
 wrath_accounting:
     resource: "@WrathAccountingBundle/Resources/config/routing.yml"
     prefix:   /
@@ -13,6 +17,10 @@ wrath_item:
 wrath_user:
     resource: "@WrathUserBundle/Resources/config/routing.yml"
     prefix:   /
+    
+wrath_news:
+    resource: "@WrathContentBundle/Resources/config/routing/news.yml"
+    prefix:   /news
 
 # Internal routing configuration to handle ESI
 #_internal:
