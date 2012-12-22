@@ -46,10 +46,18 @@ class Manifest
     protected $line_items;
     
     /**
+     * @var \DateTime $hauled_at
+     *
+     * @ORM\Column(name="hauled_at", type="datetime", nullable=true)
+     */
+    private $hauled_at;
+    
+    /**
      * Constructor
      */
     public function __construct()
     {
+        $this->hauled_at = new \DateTime('now');
         $this->line_items = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -141,6 +149,16 @@ class Manifest
     public function getLineItems()
     {
         return $this->line_items;
+    }
+    
+    /**
+     * Get hauled_at
+     *
+     * @return \DateTime 
+     */
+    public function getHauledAt()
+    {
+        return $this->hauled_at;
     }
     
     /**

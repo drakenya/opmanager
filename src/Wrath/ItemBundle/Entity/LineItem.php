@@ -153,4 +153,12 @@ class LineItem
     {
         return $this->manifest;
     }
+    
+    /**
+     * @return float
+     */
+    public function getTotalValue()
+    {
+        return $this->getQuantity() * $this->getCurrentValue();
+    }
 }

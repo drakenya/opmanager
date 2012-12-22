@@ -65,6 +65,25 @@
     {% endfor %}
 </table>
 
+<h2>Manifests:</h2>
+{% for manifest in entity.manifests %}
+<table class="record_properties">
+    <caption>{{ manifest.id }} - {{ manifest.user }}</caption>
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Total Value</th>
+    </tr>
+    {% for lineitem in manifest.lineitems %}
+    <tr>
+        <td>{{ lineitem.item.name }}</td>
+        <td>{{ lineitem.quantity }}</td>
+        <td>{{ lineitem.getTotalValue }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endfor %}
+
 <ul class="record_actions">
     <li>
         <a href="{{ path('operation') }}">
