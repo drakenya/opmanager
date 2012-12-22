@@ -3,19 +3,49 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link  href="{{ asset('/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" />
+            <link  href="{{ asset('/css/bootstrap-responsive.min.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
         {% block navigation %}
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="{{ path('_welcome') }}">Opmanager.Dev</a>
+                        <div class="nav-collapse collapse">
+                            <p class="navbar-text pull-right">
+                                {% if app.user %}
+                                    Logged in as: <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
+                                {% else %}
+                                    <a href="{{ path('fos_user_security_login') }}">Login</a>
+                                {% endif %}
+                            </p>
+                            <ul class="nav">
+                                <li><a href="{{ path('operation') }}">Operations</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <ul>
                 <li><a href="{{ path('operation') }}">/operation</a></li>
             </ul>
         {% endblock %}
             
+        <div class="container">
         {% block body %}{% endblock %}
+        </div>
             
         {% block footer %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <link src="{{ asset('/js/bootstrap.min.js') }}" type="text/javascript"></script>
+        {% endblock %}
     </body>
 </html>
