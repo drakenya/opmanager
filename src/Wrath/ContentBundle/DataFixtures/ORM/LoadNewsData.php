@@ -13,19 +13,16 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface {
      */
     public function load(ObjectManager $manager)
     {
-        $news_1 = new News();
-        $news_1->setTitle('The first news post!');
-        $news_1->setContent('This is a super dooper story. Fo sho.');
-        $news_1->setUser($this->getReference('user-admin'));
-        
-        $news_2 = new News();
-        $news_2->setTitle('Actual Content, Perchance?');
-        $news_2->setUser($this->getReference('user-admin'));
-        $news_2->setContent("= Testing\n* First\n* Second");
-        
-        $manager->persist($news_1);
-        $manager->persist($news_2);
-        $manager->flush();
+        for ($i = 0; $i < 25; $i++)
+        {
+            $news = new News();
+            $news->setTitle('The first news post!: ' . $i);
+            $news->setContent('This is a super dooper story. Fo sho. ' . $i);
+            $news->setUser($this->getReference('user-admin'));
+
+            $manager->persist($news);
+            $manager->flush();
+        }
     }
     
     /**

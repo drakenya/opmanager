@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+<h1>Latest news</h1>
+
+{% for entity in entities %}
+    <h2>{{ entity.title }}</h2>
+    <p>By: {{ entity.user }} on {{ entity.timestamp|date('Y-m-d') }}</p>
+    <div>{{ entity.content|format_text('markdown')|raw }}</div>
+    {% if not loop.last %}
+        <hr />
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

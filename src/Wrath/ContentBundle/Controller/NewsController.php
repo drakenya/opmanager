@@ -28,6 +28,21 @@ class NewsController extends Controller
             'entities' => $entities,
         ));
     }
+    
+    /**
+     * Lists the current news actions (for frontpage display)
+     * 
+     */
+    public function latestAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('WrathContentBundle:News')->findLatestOrderedByDateDesc();
+
+        return $this->render('WrathContentBundle:News:latest.html.twig', array(
+            'entities' => $entities,
+        ));
+    }
 
     /**
      * Finds and displays a News entity.

@@ -1,3 +1,7 @@
+_welcome:
+    pattern:  /
+    defaults: { _controller: WrathContentBundle:News:latest }
+    
 wrath_content:
     resource: "@WrathContentBundle/Resources/config/routing.yml"
     prefix:   /
@@ -7,8 +11,8 @@ wrath_accounting:
     prefix:   /
 
 wrath_operation:
-    resource: "@WrathOperationBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: "@WrathOperationBundle/Resources/config/routing/operation.yml"
+    prefix:   /operation
     
 wrath_item:
     resource: "@WrathItemBundle/Resources/config/routing.yml"
